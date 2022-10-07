@@ -1,3 +1,5 @@
+const socket = new WebSocket (`ws://localhost/`)
+
 document.body.style.margin   = 0
 document.body.style.overflow = `hidden`
 
