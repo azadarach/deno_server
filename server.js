@@ -3,17 +3,18 @@ import { serveDir } from "https://deno.land/std@0.157.0/http/file_server.ts"
 
 serve (handler, { port: 80 })
 
-function handler (req) {
-   // const content = "Hello, from the Deno server!!"
-   // return new Response (content)
+function handler (incoming_req) {
+
+    console.log (incoming_req)
+
+    let req = incoming_req;
+
+    if (req.url.endsWith (`/`)) {  // if the requested url does not specify a filename, which it doesnt if you just type in 'localhost' in your browser
+        req = new Request (`${ req.url }index.html`, req) // add 'index.html' to the url
+    }
 
 const options = {
     fsRoot: `public`
-}
-
-if (req.url.endsWith (`/`)) {
-    const aug_req = new Request (`${ req.url }index.html`, req)
-    return serveDir (aug_req, options)
 }
 
 return serveDir (req, options)
